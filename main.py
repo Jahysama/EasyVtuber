@@ -41,7 +41,7 @@ def main():
     else:
         cap = cv2.VideoCapture(args.input)
         frame_count = 0
-        os.makedirs(os.path.join('dst', args.character, args.output_dir), exist_ok=True)
+        os.makedirs(os.path.join(args.output_dir), exist_ok=True)
 
     facemesh = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
 
@@ -122,7 +122,7 @@ def main():
         if args.input != 'cam':
             result_image = cv2.resize(
                 cv2.cvtColor(postprocessing_image(output_image.cpu()), cv2.COLOR_RGBA2RGB), (512, 512))
-            cv2.imwrite(os.path.join('dst', args.character, args.output_dir, f'{frame_count:04d}.jpeg'), result_image)
+            cv2.imwrite(os.path.join(args.output_dir, f'{frame_count:04d}.jpeg'), result_image)
             frame_count += 1
         if args.output_webcam:
             result_image = np.zeros([720, 1280, 3], dtype=np.uint8)
