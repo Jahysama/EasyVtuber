@@ -120,7 +120,9 @@ def main():
             # cv2.imshow("camera", debug_image)
             cv2.waitKey(1)
         if args.input != 'cam':
-            cv2.imwrite(os.path.join('dst', args.character, args.output_dir, f'{frame_count:04d}.jpeg'))
+            result_image = cv2.resize(
+                cv2.cvtColor(postprocessing_image(output_image.cpu()), cv2.COLOR_RGBA2RGB), (512, 512))
+            cv2.imwrite(os.path.join('dst', args.character, args.output_dir, f'{frame_count:04d}.jpeg'), result_image)
             frame_count += 1
         if args.output_webcam:
             result_image = np.zeros([720, 1280, 3], dtype=np.uint8)
